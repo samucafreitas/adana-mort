@@ -1,0 +1,32 @@
+name: alicespt
+description: A new Flutter application.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get: ^4.1.4
+  web_scraper: ^0.1.4
+  transparent_image: ^2.0.0
+  flutter_launcher_icons: ^0.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/icon-tibiacoin.png
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/tibia_old_icon.png"
