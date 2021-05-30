@@ -25,7 +25,7 @@ class AuctionController extends SuperController<List<Auction>> {
 
   void filterTibiaAuctions() {
     change([], status: RxStatus.loading());
-    currentPage.value = 1;
+    resetCurrentPage();
     updateLastPage();
     append(() => () => auctionRepository.currentAuctions(_filterAuctions));
   }
@@ -49,6 +49,11 @@ class AuctionController extends SuperController<List<Auction>> {
   void updateCurrentAuctions() {
     currentPage.value = _filterAuctions.currentPage;
     append(() => () => auctionRepository.currentAuctions(_filterAuctions));
+  }
+
+  void resetCurrentPage() {
+    currentPage.value = 1;
+    _filterAuctions.currentPage = 1;
   }
 
   @override

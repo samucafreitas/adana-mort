@@ -36,7 +36,7 @@ paginationBar() {
           child: Obx(
             () {
               return Text(
-                '${controller.currentPage} de ${controller.lastPage}',
+                'Page ${controller.currentPage} of ${controller.lastPage}',
                 style: TextStyle(
                   color: const Color(0xFF5A2800),
                   fontWeight: FontWeight.bold,

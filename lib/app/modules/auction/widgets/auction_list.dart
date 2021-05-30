@@ -7,21 +7,11 @@ auctionList(context, state) => Container(
         itemBuilder: (_, index) => Container(
           margin: EdgeInsets.only(left: 10, bottom: 10, right: 10),
           child: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xFFD4C0A1),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(6),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF875F3E).withOpacity(0.9),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ]),
+            decoration: genBoxDecoration(
+              Color(0xFFD4C0A1),
+              BorderRadius.circular(6),
+              Color(0xFF875F3E).withOpacity(0.9),
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -51,98 +41,9 @@ auctionList(context, state) => Container(
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
-                              height: 86,
-                              width: 86,
-                              margin: EdgeInsets.only(
-                                  right: 0, left: 10, bottom: 10),
-                              padding: EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFFF1E0C6),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 9,
-                                      offset: Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ]),
-                              child: FadeInImage.memoryNetwork(
-                                placeholder: kTransparentImage,
-                                image: state[index].auctionOutfit,
-                              ),
-                            ),
-                            boxItems(state[index].auctionItemsViewBox),
-                            Expanded(
-                              child: Container(
-                                height: 86,
-                                margin: EdgeInsets.only(
-                                    left: 0, right: 10, bottom: 10),
-                                padding: EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFF1E0C6),
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        spreadRadius: 1,
-                                        blurRadius: 9,
-                                        offset: Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ]),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Visibility(
-                                      visible:
-                                          MediaQuery.of(context).size.width >
-                                              410,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 5),
-                                        child: Text(
-                                          "Current Bid",
-                                          style: TextStyle(
-                                              color: const Color(0xFF5A2800),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 5),
-                                          child: Text(
-                                            state[index].auctionBid,
-                                            style: TextStyle(
-                                                color: const Color(0xFF5A2800),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        Image(
-                                          image: AssetImage(
-                                              'assets/images/icon-tibiacoin.png'),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            boxCharImg(state[index].auctionOutfit),
+                            boxCharItems(state[index].auctionItemsViewBox),
+                            boxCharBid(context, state[index].auctionBid),
                           ],
                         ),
                       ),
@@ -156,147 +57,129 @@ auctionList(context, state) => Container(
       ),
     );
 
-boxItems(List<String> auctionItemsViewBox) => Container(
+boxCharImg(charImgURL) => Container(
+      height: 86,
+      width: 86,
+      margin: EdgeInsets.only(right: 0, left: 10, bottom: 10),
+      padding: EdgeInsets.all(10.0),
+      decoration: genBoxDecoration(
+        Color(0xFFF1E0C6),
+        BorderRadius.circular(6),
+        Colors.black.withOpacity(0.3),
+      ),
+      child: FadeInImage.memoryNetwork(
+        placeholder: kTransparentImage,
+        image: charImgURL,
+      ),
+    );
+
+boxCharItems(List<String> auctionItemsViewBox) => Container(
       margin: EdgeInsets.only(right: 3, left: 3, bottom: 10),
       padding: EdgeInsets.all(3.0),
       width: 86,
       height: 86,
-      decoration: BoxDecoration(
-          color: const Color(0xFFF1E0C6),
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 9,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ]),
+      decoration: genBoxDecoration(
+        Color(0xFFF1E0C6),
+        BorderRadius.circular(6),
+        Colors.black.withOpacity(0.3),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 38,
-                width: 38,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF1E0C6),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.horizontal(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 9,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: Visibility(
-                  visible: auctionItemsViewBox[0] !=
-                      '(no item for display selected)',
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: auctionItemsViewBox[0],
-                  ),
-                ),
-              ),
-              Container(
-                height: 38,
-                width: 38,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF1E0C6),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.horizontal(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 9,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: Visibility(
-                  visible: auctionItemsViewBox[1] !=
-                      '(no item for display selected)',
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: auctionItemsViewBox[1],
-                  ),
-                ),
-              ),
+              itemWidget(auctionItemsViewBox[0]),
+              itemWidget(auctionItemsViewBox[1]),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 38,
-                width: 38,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF1E0C6),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.horizontal(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 9,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: Visibility(
-                  visible: auctionItemsViewBox[2] !=
-                      '(no item for display selected)',
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: auctionItemsViewBox[2],
-                  ),
-                ),
-              ),
-              Container(
-                height: 38,
-                width: 38,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF1E0C6),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.horizontal(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 9,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: Visibility(
-                  visible: auctionItemsViewBox[3] !=
-                      '(no item for display selected)',
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: auctionItemsViewBox[3],
-                  ),
-                ),
-              ),
+              itemWidget(auctionItemsViewBox[2]),
+              itemWidget(auctionItemsViewBox[3]),
             ],
           )
         ],
       ),
     );
+
+itemWidget(imageURL) => Container(
+      height: 38,
+      width: 38,
+      decoration: genBoxDecoration(
+        Color(0xFFF1E0C6),
+        BorderRadius.horizontal(),
+        Colors.black.withOpacity(0.3),
+      ),
+      child: Visibility(
+        visible: imageURL != '(no item for display selected)',
+        child: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: imageURL,
+        ),
+      ),
+    );
+
+boxCharBid(context, auctionBid) => Expanded(
+      child: Container(
+        height: 86,
+        margin: EdgeInsets.only(left: 0, right: 10, bottom: 10),
+        padding: EdgeInsets.all(10.0),
+        decoration: genBoxDecoration(
+          Color(0xFFF1E0C6),
+          BorderRadius.circular(6),
+          Colors.black.withOpacity(0.3),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Visibility(
+              visible: MediaQuery.of(context).size.width > 410,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Text(
+                  "Current Bid",
+                  style: TextStyle(
+                      color: const Color(0xFF5A2800),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Text(
+                    auctionBid,
+                    style: TextStyle(
+                        color: const Color(0xFF5A2800),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Image(
+                  image: AssetImage('assets/images/icon-tibiacoin.png'),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+
+genBoxDecoration(boxDecColor, borderRad, boxShaColor) => BoxDecoration(
+        color: boxDecColor,
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
+        borderRadius: borderRad,
+        boxShadow: [
+          BoxShadow(
+            color: boxShaColor,
+            spreadRadius: 1,
+            blurRadius: 9,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ]);
