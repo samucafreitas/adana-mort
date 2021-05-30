@@ -92,6 +92,19 @@ filterAuctionDialog(context) => showDialog(
                           fontSize: 15),
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: orderColumnDropDown(),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: orderDirectionDropDown(),
+                      ),
+                    ],
+                  ),
                   Container(
                     child: GestureDetector(
                       onTap: () {
@@ -300,5 +313,89 @@ worldDropDown() {
             child: Text(value),
           );
         }).toList(),
+      ));
+}
+
+orderColumnDropDown() {
+  AuctionController controller = Get.find();
+
+  final Map<String, int> orderColumn = {
+    'Bid': 100,
+    'End Date': 101,
+    'Start Date': 103,
+    'Character Level': 102,
+    'Axe Fighting': 10,
+    'Club Fighting': 9,
+    'Distance Fighting': 7,
+    'Fishing': 13,
+    'Fist Fighting': 11,
+    'Magic Level': 1,
+    'Shielding': 6,
+    'Sword Fighting': 8,
+  };
+
+  return controller.obx((_) => DropdownButton<int>(
+        value: controller.filterAuctions.orderColumn,
+        icon: const Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        style: const TextStyle(color: const Color(0xFF5A2800)),
+        underline: Container(
+          height: 2,
+          color: const Color(0xFF5A2800),
+        ),
+        onChanged: (int? newValue) {
+          controller.filterAuctions.orderColumn = newValue!;
+          controller.update();
+        },
+        items: orderColumn
+            .map((String k, v) {
+              return MapEntry(
+                k,
+                DropdownMenuItem<int>(
+                  value: v,
+                  child: Text(k),
+                ),
+              );
+            })
+            .values
+            .toList(),
+      ));
+}
+
+orderDirectionDropDown() {
+  AuctionController controller = Get.find();
+
+  final Map<String, int> orderDirection = {
+    'highest / latest': 0,
+    'lowest / earliest': 1,
+  };
+
+  return controller.obx((_) => DropdownButton<int>(
+        value: controller.filterAuctions.orderDirection,
+        icon: const Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        style: const TextStyle(color: const Color(0xFF5A2800)),
+        underline: Container(
+          height: 2,
+          color: const Color(0xFF5A2800),
+        ),
+        onChanged: (int? newValue) {
+          controller.filterAuctions.orderDirection = newValue!;
+          controller.update();
+        },
+        items: orderDirection
+            .map((String k, v) {
+              return MapEntry(
+                k,
+                DropdownMenuItem<int>(
+                  value: v,
+                  child: Text(k),
+                ),
+              );
+            })
+            .values
+            .toList(),
       ));
 }
